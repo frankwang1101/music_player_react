@@ -1,6 +1,6 @@
 import {CONFIG} from '../container/Config'
 import fetch from 'fetch-jsonp'
-import {renderLyric,getLocalStorage,setLocalStorage} from '../util/utils'
+import {renderLyric,getLocalStorage,setLocalStorage,isContain} from '../util/utils'
 
 
 export function fetchChannelList(id){
@@ -190,6 +190,15 @@ function fetchSongFail(id){
 		isFetch : false,
 		success:false,
 		id:id
+	}
+}
+
+export function addToNowList(obj){
+	return (dispatch,getState) => {
+		let {nowList} = getState().reducer;
+		if(!isContain(nowList,obj.song_id)){
+			dispatch({type:'UPDATENOWLIST',item:obj});
+		}
 	}
 }
 

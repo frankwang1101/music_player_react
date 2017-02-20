@@ -2,13 +2,20 @@ import React from 'react'
 import fetch from 'fetch-jsonp'
 import {connect,Provider} from 'react-redux'
 import {CONFIG} from'./Config'
-import {fetchSong,toggleFavorite} from '../actions/Action'
+import {fetchSong,toggleFavorite,addToNowList} from '../actions/Action'
 import {formatText,isContain} from '../util/utils'
 
 class Cell extends React.Component{
+	constructor(...args){
+		super(args);
+		this.addToList = this.addToList.bind(this)
+	}
+	addToList(){
+		this.props.addToNowList({song_id:this.props.song_id,title:this.props.title})
+	}
 	render(){ 
 		const {id,play,title,author,target,album_title,like,heartStyle} = this.props
-		return (<li key={id} onDoubleClick={play}>{target}<i className={"iconfont "+heartStyle} style={{'float':'left'}} onClick={like}></i><div className="music-div">{title}</div><div className="music-div">{author}</div><div className="music-div"></div>{album_title}</li>)
+		return (<li key={id} onDoubleClick={play}>{target}<i className={"iconfont "+heartStyle} onClick={like}></i><i onClick={this.addToList}  className="iconfont icon-plus"/><div className="music-div">{title}</div><div className="music-div">{author}</div><div className="music-div"></div>{album_title}</li>)
 	}
 }
 
@@ -29,7 +36,8 @@ function first(state,o){
 function second(dispatch,b){
 	return{
 		play : () => dispatch(fetchSong(b)),
-		like : () => dispatch(toggleFavorite(b))
+		like : () => dispatch(toggleFavorite(b)),
+		addToNowList : (obj) => dispatch(addToNowList(obj))
 	}
 }
 

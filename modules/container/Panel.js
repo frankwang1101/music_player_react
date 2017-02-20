@@ -66,7 +66,6 @@ class Panel extends React.Component{
 
 	render(){
 		const {link,title,author,duration,prev,next,currTime,timeWidth,isFetch,id,play_icon,volumeWidth,pic,nowList,showState,mode} = this.props
-		console.log('mode---'+mode)
 		return (
 		<div className="music-panel">
 			<audio src={link} ref="audio" onEnded={this.endNext} onTimeUpdate={this.updateTime}/>
@@ -95,7 +94,7 @@ class Panel extends React.Component{
             <div className="history-area" ref="ul">
             	<div className="head">
             		<div className={showState === 'list' ? 'active head-block' :'head-block'} onClick={this.showPlayList}>播放列表</div>
-            		<div className={showState === 'history' ? 'active head-block' :'head-block'} onClick={this.showHistory}>播放历史</div><i className="iconfont icon-plus"></i>
+            		<div className={showState === 'history' ? 'active head-block' :'head-block'} onClick={this.showHistory}>播放历史</div>
             	</div>
             	<div className="body">
             		<HistoryList list={nowList} play={this.playThis} nowid={id}/>

@@ -149,7 +149,10 @@ export const reducer = (state = initState, action) => {
  	    case 'UPDATEHISTORYLIST':
  	        let hists = JSON.parse(localStorage.getItem('React_' + action.key));
  	        return Object.assign({}, state, { playHistory: hists || [] });
-
+		case 'UPDATENOWLIST':
+			let tempNList = state.nowList.slice(0)
+			tempNList.push(action.item)
+			return Object.assign({},state,{nowList:tempNList});
  	    default:
  	        return state
  	}
