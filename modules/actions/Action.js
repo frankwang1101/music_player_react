@@ -101,27 +101,54 @@ export function fetchSong(o){
 	}
 }
 
-export function prev(){
+export function changeMode(){
 	return (dispatch,getState) => {
-		let {curIndex,nowList} = getState().reducer;
-		if(curIndex !== 0){
-			curIndex--;
-			// updateCurIndex(curIndex);
-			let song = nowList[curIndex]
-			dispatch(fetchTheSong(song.song_id,curIndex))
-		}
+		let state = getState();
+		let mode_arr = ['order','cycle','single-cycle','random']
+		let {mode_index,mode} = state.panelReducer.info;
+		mode_index = (mode_index+1)%mode_arr.length;
+		mode = mode_arr[mode_index];
+		dispatch({type:'CHANGEMODE',mode:mode,index:mode_index});
 	}
 }
 
-export function next(){
+export function prev(){
 	return (dispatch,getState) => {
 		let {curIndex,nowList} = getState().reducer;
-		if(curIndex < nowList.length -1 ){
-			curIndex++;
-			// updateCurIndex(curIndex);
-			let song = nowList[curIndex]
-			dispatch(fetchTheSong(song.song_id,curIndex))
+		if(curIndex != 0){
+			curIndex--;
+		}else{
+			curIndex = nowList.length - 1;
 		}
+		let song = nowList[curIndex]
+		dispatch(fetchTheSong(song.song_id,curIndex))
+	}
+}
+
+export function next(flag){
+	return (dispatch,getState) => {
+		let {curIndex,nowList} = getState().reducer;
+		let {mode_index} = getState().panelReducer;
+		if(flag == true){
+			switch(mode_index){
+				case '0':
+					if(curIndex < nowList.length -1 ){curIndex++;}
+					break;
+				case '1':
+					curIndex = (curIndex + 1) % nowList.length;
+					break;
+				case '3':
+					curIndex = parseInt(Math.random()*nowList.length);
+					break;
+				default:
+					break;
+
+			}
+		}else{
+			curIndex = (curIndex + 1) % nowList.length;
+		}
+		let song = nowList[curIndex]
+		dispatch(fetchTheSong(song.song_id,curIndex))
 	}
 }
 

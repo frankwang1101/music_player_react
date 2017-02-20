@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {prev,next,toggle,updateTime,changeProgress,changeVolume,fetchSong,changeShowState} from '../actions/Action'
+import {prev,next,toggle,updateTime,changeProgress,changeVolume,fetchSong,changeShowState,changeMode} from '../actions/Action'
 import {Link} from 'react-router'
 import {formatDuration} from '../util/utils'
 
@@ -16,6 +16,8 @@ class Panel extends React.Component{
 		this.playThis = this.playThis.bind(this)
 		this.showHistory = this.showHistory.bind(this)
 		this.showPlayList = this.showPlayList.bind(this)
+		this.changeMode = this.changeMode.bind(this)
+		this.endNext = this.endNext.bind(this)
 	}
 	changePro(e){
 		if(!this.props.isFetch && this.props.id != -1)
@@ -32,6 +34,12 @@ class Panel extends React.Component{
 	}
 	toggleUl(e){
 		this.refs.ul.classList.toggle('active')
+	}
+	changeMode(e){
+		this.props.changeMode()
+	}
+	endNext(){
+		this.props.next(true);
 	}
 	showHistory(e){
 		if(this.props.showState === 'list'){
@@ -57,11 +65,11 @@ class Panel extends React.Component{
 	}
 
 	render(){
-		const {link,title,author,duration,prev,next,currTime,timeWidth,isFetch,id,play_icon,volumeWidth,pic,nowList,showState} = this.props
-
+		const {link,title,author,duration,prev,next,currTime,timeWidth,isFetch,id,play_icon,volumeWidth,pic,nowList,showState,mode} = this.props
+		console.log('mode---'+mode)
 		return (
 		<div className="music-panel">
-			<audio src={link} ref="audio" onEnded={next} onTimeUpdate={this.updateTime}/>
+			<audio src={link} ref="audio" onEnded={this.endNext} onTimeUpdate={this.updateTime}/>
             <div className="center-panel">
                 <div className="title">{title}  {author}</div>
                 <div className="process" onClick={this.changePro}>
@@ -75,7 +83,8 @@ class Panel extends React.Component{
                 <a className="iconfont icon-next" onClick={next}></a>
             </div>
             <div className="right-panel">
-                <div className="mode" onClick={this.toggleUl}><a className="iconfont icon-music"></a></div>
+                <div className="mode-change" onClick={this.changeMode}><a className={"iconfont icon-"+mode}></a></div>
+                <div className="mode" onClick={this.toggleUl}><a className="iconfont icon-list"></a></div>
                 <div className="volume-btn">
                 	<a className="iconfont icon-volume"></a>
                 </div>	
@@ -107,7 +116,7 @@ function HistoryList(props){
 }
 
 function a(state,prop){
-	let {link,title,author,duration,currTime,isFetch,id,play,volume,pic_s} = state.panelReducer.info || ""
+	let {link,title,author,duration,currTime,isFetch,id,play,volume,pic_s,mode} = state.panelReducer.info || ""
 	let {nowList,playHistory} = state.reducer;
 	let {showState} = state.panelReducer;
 	let timeWidth = `${((currTime || 0)/duration)*100}%`
@@ -118,20 +127,21 @@ function a(state,prop){
 	}
 	let plist = showState === 'list' ? nowList : playHistory
 	return {
-		link,title,author,duration,currTime,timeWidth,isFetch,id,play_icon:!play?'icon-play':'icon-stop',volume,volumeWidth,pic:pic_s,nowList:plist,showState
+		link,title,author,duration,currTime,timeWidth,isFetch,id,play_icon:!play?'icon-play':'icon-stop',volume,volumeWidth,pic:pic_s,nowList:plist,showState,mode
 	}
 }
 
 function b(d,prop){
 	return {
 		prev : () => d(prev(prop)),
-		next : () => d(next(prop)),
+		next : (flag) => d(next(prop)),
 		toggle : (a) => d(toggle(a)),
 		updateTime : (a) => d(updateTime(a)),
 		changeVolume : (a,b) => d(changeVolume(a,b)),
 		changeProgress : (a,b) => d(changeProgress(a,b)),
 		fetchSong : (o) => d(fetchSong(o)),
-		changeShowState : (flag) => d(changeShowState(flag))
+		changeShowState : (flag) => d(changeShowState(flag)),
+		changeMode : () => d(changeMode())
 	}
 }
 

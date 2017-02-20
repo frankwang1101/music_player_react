@@ -4,9 +4,9 @@ module.exports = {
   entry: './index.js',
 
   output: {
-    path: './dist/',
+    // path: './dist/',
     filename: 'bundle.js',
-    publicPath: './dist/',
+    // publicPath: './dist/',
     chunkFilename:"[name].chunk.js"
   },
 
@@ -15,6 +15,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader',
+      },
+      {
+        test: /\.less$/,
+        loader: 'style-loader!css-loader!less-loader',
       },
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
       {
@@ -31,18 +35,18 @@ module.exports = {
       inline: true,
       port: 8080,
       stats: { colors: true },
-       proxy: {
-        '/click/get': {
-          target: 'http://music.qq.com/',
-          pathRewrite: {'^/click/get' : '/'},
-          changeOrigin: true
-        },
-        '/qq_music_get':{
-           target: 'http://c.y.qq.com/',
-          pathRewrite: {'^/qq_music_get' : '/'},
-          changeOrigin: true
-        }
-      }
+      //  proxy: {
+      //   '/click/get': {
+      //     target: 'http://music.qq.com/',
+      //     pathRewrite: {'^/click/get' : '/'},
+      //     changeOrigin: true
+      //   },
+      //   '/qq_music_get':{
+      //      target: 'http://c.y.qq.com/',
+      //     pathRewrite: {'^/qq_music_get' : '/'},
+      //     changeOrigin: true
+      //   }
+      // }
     },
     // resolve: {
     //     root: [],

@@ -15,7 +15,9 @@ const panelState = {
 		play:false,
 		isFetch:false,
 		id:-1,
-		volume:1
+		volume:1,
+		mode:'order',
+		mode_index:0
 	}
 }
 const lyricsState = {
@@ -40,7 +42,8 @@ export const queryReducer = (state = queryState,action) => {
 export const panelReducer = (state = panelState, action) => {
 	switch (action.type) {
 	    case 'PLAY':
-	        return Object.assign({}, state, { nowPlay: action.id, info: action.info })
+			let music_info = Object.assign({},state.info,action.info);
+	        return Object.assign({}, state, { nowPlay: action.id, info: music_info})
 	    case 'PLAYSTATE':
 	        let k1 = Object.assign({}, state);
 	        k1.info.play = action.playFlag;
@@ -64,6 +67,9 @@ export const panelReducer = (state = panelState, action) => {
 	        state.info.isFetch = action.isFetch;
 	        state.info.id = action.id;
 	        return state;
+		case 'CHANGEMODE':
+			let newInfo = Object.assign({},state.info,{mode:action.mode,mode_index:action.index});
+			return Object.assign({},state,{info:newInfo});
 	    default:
 	        return state;
 

@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 import SideBar from './container/SideBar'
 import Panel from './container/Panel'
 import {hashHistory,withRouter} from 'react-router'
-require('../styles/music.css');
+require('../styles/music.less');
 require('../styles/font/iconfont.css')
 
 
