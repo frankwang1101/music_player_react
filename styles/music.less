@@ -1,0 +1,342 @@
+html,body{
+	padding: 0;
+	margin: 0;
+}
+body{
+	background: url(./pic/default.png) 0% 0% / cover no-repeat;
+}
+input:focus{
+	outline:0
+}
+.wrap{
+	header{
+		height: 50px;
+		background: url(./pic/pixel.png) repeat 0 0;
+		position: fixed;
+		width: 100%;
+		&>div{
+			height: 50px;
+			box-sizing: border-box;
+		}
+		.logo{
+			color: #fff;
+			line-height: 50px;
+			padding: 0 20px;
+			font-size: 30px;
+		}
+		.search-area{
+			margin: 10px 100px;
+			background-color: #c6c6c6;
+			opacity: 0.6;
+			height: 30px;
+			border-radius: 25px;
+			.search{
+				height: 30px;
+				width: 400px;
+				padding: 0;
+				margin: 0;
+				border: 0;
+				background-color: transparent;
+			}
+		}
+
+	}
+	.center{
+		position: absolute;
+		width: 100%;
+		top: 50px;
+		bottom: 60px;
+		background-color: #fff;
+		.sidebar{
+			// background-color: #ff0;
+			width: 250px;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			overflow: auto;
+			border-right: 1px solid #ccc;
+			&>ul{
+				&>li{
+					list-style: none;
+					width: 100%;
+					height: 30px;
+					line-height: 30px;
+					cursor: pointer;
+					font-size: 14px;
+					a{
+						text-decoration: none;
+						color: inherit;
+						&.active{
+							&:before{
+								content:'->';
+								visibility: visible;
+							}
+							color: #f00;
+							font-size: 15px;
+						}
+					}
+				}
+			}
+		}
+		.list-area{
+			// background-color: #f00;
+			overflow: auto;
+			width: 100%;
+			padding-left: 250px;
+			height: 100%;
+			.lyric-wrap{
+				position: relative;
+				padding: 20px 0;
+				height: 100%;
+				display: flex;
+				justify-content:center;
+				box-sizing: border-box;
+				&:after{
+					content:'';
+					display: block;
+					visibility: hidden;
+					clear: both;
+				}
+				.music-area{
+					// float: left;
+					padding-right: 200px;
+					height: 100%;
+					.album-area{
+						height: 250px;
+						img{
+							width: 250px;
+							height: 250px;
+							border-radius: 50%;
+
+						}
+					}
+					.music-info{
+						margin-top: 20px;
+						text-align: center;
+						font-size: 20px;
+
+					}
+				}
+				.lyric-area{
+					padding-left: 150px;
+					// float: right;
+					height: 100%;
+					.lyric{
+						height: 100%;
+						ul{
+							text-align: center;
+							// height: 100%;
+							position: relative;
+							// top: 50%;
+							margin-top: 50%;
+							min-width: 300px;
+							padding: 0 20px;
+							margin: 0;
+							overflow: auto;
+							li{
+								&.target-lyric{
+									font-size: 20px;
+									color: #f00;
+									font-family: 'Microsoft YaHei';
+								}
+								height: 25px;
+								line-height: 25px;
+								padding: 0;
+								border: 0;
+							}
+						}
+					}
+				}
+			}
+			ul {
+				.top-li{
+					background-color: #f0f0f0;
+				}
+				.music-div{
+					float: left;
+					width: 20%;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					padding-right: 20px;
+				}
+				li + li{
+					border-top:1px solid #ccc;
+				}
+				li {
+					list-style: none;
+					height: 50px;
+					line-height: 50px;
+					padding-left: 50px;
+					&:hover{
+						background-color: #eee;
+					}
+				}
+			}
+		}
+	}
+	.music-panel{
+		width: 100%;
+		height: 60px;
+		position: fixed;
+		background: url(./pic/pixel.png) repeat 0 0;
+		bottom: 0;
+		.center-panel{
+			position: relative;
+			height: 100%;
+			padding: 0 300px 0 280px;
+			color: #fff;
+			.album-pic{
+			    width: 50px;
+			    height: 50px;
+			    position: absolute;
+			    left: 10px;
+			    top: 5px;
+			    border: none;
+			    outline: none;
+			}
+			.title{
+				line-height: 30px;
+				height: 30px;
+			}
+			.process{
+				background-color: #999;
+				height: 5px;
+				width: 90%;
+				margin: 10px 0;
+				position: relative;
+				.bg-process{
+					height: 100%;
+					top: 0;
+					left: 0;
+					background-color: #eee;
+					position: absolute;
+				}
+				.time-area{
+				    position: absolute;
+				    right: -100px;
+				    top: -9px;
+				}
+			}
+		}
+		.left-panel{
+			height: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			text-align: center;
+			line-height: 60px;
+			font-size: 30px;
+			width: 280px;
+			.album-pic{
+				position: absolute;
+				left: 0;
+			}
+			.icon-prev{
+				margin-left: 100px;
+			}
+			&>a{
+				font-size: 30px!important;
+				margin: 0 10px;
+				color: #FFF;
+			}
+		}
+		.right-panel{
+			height: 100%;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			text-align: center;
+			line-height: 60px;
+			width: 300px;
+			.mode{
+				position: absolute;
+				left: 10px;
+				color: #fff;
+				line-height: 60px;
+				a{
+					font-size: 25px;
+				}
+			}
+			.volume-btn{
+				.mode;
+				left: 55px;
+			}
+			.volume{
+				position: absolute;
+				height: 5px;
+				width: 50%;
+				background-color: #fff;
+				left: 90px;
+				margin-top: 28px;
+				.volume-bar{
+					position: absolute;
+					height: 5px;
+					width: 0;
+					background-color: #f00;
+					left: 0;
+					top: 0;
+				}
+			}
+		}
+		.history-area{
+			position: absolute;
+			bottom: 60px;
+			right: 10px;
+			width: 400px;
+			height: 400px;
+			background-color: #fff;
+			border: 1px solid  #ccc;
+			display: none;
+			&.active{
+				display: block;
+			}
+			.head{
+				width: 360px;
+				background-color: #f00;
+				padding: 0 20px;
+				position: fixed;
+				height: 31px;
+				line-height: 31px;
+				i{
+					float: right;
+				}
+				.head-block{
+					display: block;
+					padding: 0 5px;
+					float: left;
+					box-sizing: border-box;
+					color: #fff;
+					&.active{
+						border-top: 2px solid #f00;
+						color: #f00;
+						background-color: #fff;
+						line-height: 28px;
+    					height: 100%;
+					}
+				}
+			}
+			.body{
+				width: 100%;
+				height: 375px;
+				margin-top: 25px;
+				overflow: auto;
+				ul{
+					li{
+						height: 25px;
+						line-height: 25px;
+					}
+					li+li{
+						border-top: 1px solid #ddd;
+					}
+					list-style: none;
+				}
+			}
+		}
+
+	}
+}
+.fll{
+	float: left;
+
+}
